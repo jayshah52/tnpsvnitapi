@@ -44,7 +44,7 @@ DEFAULT_FROM_EMAIL = 'sjay5200@gmail.com'
 # DOMAIN = configparser('localhost:8100') #localhost:8000
 # SITE_NAME = conf('net') #ne
 # djoser login settings
-DOMAIN = ('localhost:8080')
+DOMAIN = ('tnpsvnitapi')
 SITE_NAME = ('tnpsvnit')
 DJOSER = {
 
