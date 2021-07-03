@@ -23,8 +23,10 @@ from django.urls import path, include
 from tnp.views import request_user_activation
 
 from tnp import settings
+from . import views
 
 urlpatterns = [
+    path('', views.index, name = 'index' ),
     path('admin/', admin.site.urls),
     # path('auth/users/activate/(?P<uid>[\w-]+)/(?P<token>[\w-]+)/$', UserActivationView.as_view()),
     path("activate/",request_user_activation),

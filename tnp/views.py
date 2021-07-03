@@ -11,7 +11,7 @@
 #         result = requests.post(post_url, data = post_data)
 #         content = result.text
 #         return Response(content)
-
+from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.decorators import (
     api_view,
@@ -22,6 +22,9 @@ from rest_framework.views import APIView
 
 import requests
 
+
+def index(request):
+    return render(request,'base.html')
 
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
