@@ -1,3 +1,3 @@
-web: gunicorn tnp.wsgi --log-file -
+web: gunicorn tnp.wsgi:application --log-file - --log-level debug
 python manage.py collectstatic --noinput
 manage.py migrate
