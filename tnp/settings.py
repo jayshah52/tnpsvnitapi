@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--so0&05&%8jxdxn&kh+ep9zg%rak7dy^yw*1tzyoot#&$apc5g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://tnpsvnitapi.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['tnpsvnitapi.herokuapp.com', '127.0.0.1']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080'
 ]
