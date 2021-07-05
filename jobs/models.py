@@ -32,7 +32,7 @@ class Job(models.Model):
     status = models.BooleanField(default=True)
     criteria = models.TextField(null=True, blank=True)
     apply_by = models.DateField(max_length=8, null=True)
-    jd = models.FileField(upload_to='jd/pdf', null=True)
+    jd = models.FileField(upload_to='jd/pdf', null=True, max_length=1000)
 
     def __str__(self):
         return str(self.role)
