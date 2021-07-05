@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--so0&05&%8jxdxn&kh+ep9zg%rak7dy^yw*1tzyoot#&$apc5g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['tnpsvnitapi.herokuapp.com', '127.0.0.1']
 CORS_ALLOWED_ORIGINS = [
@@ -83,6 +83,8 @@ INSTALLED_APPS = [
     'multiselectfield',
     'student',
     'jobs',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -171,6 +173,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CLOUDINARY_STORAGE = {
+             'CLOUD_NAME': 'tnpnitsurat',
+             'API_KEY': '194891582245412',
+             'API_SECRET': 'ud_1PQHHG_J_SsutMR1A8rncXKQ'
+            }
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
