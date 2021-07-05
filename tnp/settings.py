@@ -29,7 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['tnpsvnitapi.herokuapp.com', '127.0.0.1']
 CORS_ALLOWED_ORIGINS = [
-    'https://tnpnitsurat.herokuapp.com/'
+    'https://tnpnitsurat.herokuapp.com'
 ]
 
 AUTH_USER_MODEL = 'student.Student'
