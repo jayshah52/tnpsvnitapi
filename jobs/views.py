@@ -135,12 +135,23 @@ class JobViewSet(viewsets.ModelViewSet):
         # send_mail(subject, message, email_from, recipient_list)
         return Response("Job Created successfully")
 
+    @action(detail=False, methods=['post'])
+    def remove_student(self, request, *args, **kwargs):
+        id = request.data.get('id')
+        username = request.data.get('username')
+        job = Job.objects.get(id=id)
+        # shortlist = Shortlist.objects.filter(job=job, number=number).first()
+        student = Student.objects.get(username=username)
+        job.users.remove(student)
+        return Response("Deleted succesfully!")
+
     @action(detail=False, methods=['get'])
     def get_job_info(self, request, *args, **kwargs):
         id = request.query_params.get('id')
         job = Job.objects.get(id=id)
         serializer = JobSerializer(job)
         return Response(serializer.data)
+
 
     @action(detail=False, methods=['post'])
     def update_job(self, request, *args, **kwargs):
