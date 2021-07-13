@@ -273,20 +273,20 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
         ws['P1'].value = 'Email ID'
         ws['Q1'].value = 'Mobile No.'
-        ws['O1'].value = 'Resume Link'
+        ws['R1'].value = 'Resume Link'
         sheet.merge_cells('P4:P5')
         sheet.merge_cells('Q4:Q5')
 
         style_cell('P4', 'E-mail ID')
         style_cell('Q4', 'Mobile No.')
         if include_resume:
-            style_cell('O4', 'Resume Link')
+            style_cell('R4', 'Resume Link')
 
         sheet.row_dimensions[4].height = 25
         sheet.column_dimensions['P'].width = 15
         sheet.column_dimensions['Q'].width = 18
         if include_resume:
-            sheet.column_dimensions['O'].width = 18
+            sheet.column_dimensions['R'].width = 18
 
         i = 0
         for row in range(2,2+len(users)):
@@ -309,7 +309,7 @@ class JobViewSet(viewsets.ModelViewSet):
             write_cell('P{}'.format(row), users[i].personal_mail)
             write_cell('Q{}'.format(row), users[i].phone_no)
             if include_resume:
-                write_cell('O{}'.format(row), users[i].resume_link)
+                write_cell('R{}'.format(row), users[i].resume_link)
             i += 1
 
         data = ws.values
@@ -337,7 +337,7 @@ class JobViewSet(viewsets.ModelViewSet):
             style_cell('P{}'.format(row), df['Email ID'][i])
             style_cell('Q{}'.format(row), df['Mobile No.'][i])
             if include_resume:
-                style_cell('O{}'.format(row), df['Resume Link'][i])
+                style_cell('R{}'.format(row), df['Resume Link'][i])
             i += 1
         # print("TRy", sdf.head())
         wb.remove(wb.get_sheet_by_name('Sorting'))
