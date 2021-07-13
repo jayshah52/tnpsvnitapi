@@ -8,6 +8,7 @@ from multiselectfield import MultiSelectField
 class Job(models.Model):
     DEPARTMENTS = (
         ('CO', 'Computer Engineering'),
+        ('CS', 'Computer Science Engineering'),
         ('EC', 'Electronics & Communication Engineering'),
         ('EE', 'Electrical Engineering'),
         ('CE', 'Civil Engineering'),
