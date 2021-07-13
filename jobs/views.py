@@ -273,7 +273,9 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
         ws['P1'].value = 'Email ID'
         ws['Q1'].value = 'Mobile No.'
-        ws['R1'].value = 'Resume Link'
+        if include_resume:
+            print("Worksheet")
+            ws['R1'].value = 'Resume Link'
         sheet.merge_cells('P4:P5')
         sheet.merge_cells('Q4:Q5')
 
@@ -337,6 +339,7 @@ class JobViewSet(viewsets.ModelViewSet):
             style_cell('P{}'.format(row), df['Email ID'][i])
             style_cell('Q{}'.format(row), df['Mobile No.'][i])
             if include_resume:
+                print("Hello World")
                 style_cell('R{}'.format(row), df['Resume Link'][i])
             i += 1
         # print("TRy", sdf.head())
