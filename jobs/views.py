@@ -273,7 +273,7 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
         ws['P1'].value = 'Email ID'
         ws['Q1'].value = 'Mobile No.'
-        if include_resume:
+        if include_resume == 'true':
             print("Worksheet")
             ws['R1'].value = 'Resume Link'
         sheet.merge_cells('P4:P5')
@@ -281,13 +281,13 @@ class JobViewSet(viewsets.ModelViewSet):
 
         style_cell('P4', 'E-mail ID')
         style_cell('Q4', 'Mobile No.')
-        if include_resume:
+        if include_resume == 'true':
             style_cell('R4', 'Resume Link')
 
         sheet.row_dimensions[4].height = 25
         sheet.column_dimensions['P'].width = 15
         sheet.column_dimensions['Q'].width = 18
-        if include_resume:
+        if include_resume == 'true':
             sheet.column_dimensions['R'].width = 18
 
         i = 0
@@ -310,7 +310,7 @@ class JobViewSet(viewsets.ModelViewSet):
             write_cell('O{}'.format(row), users[i].cgpa_s6)
             write_cell('P{}'.format(row), users[i].personal_mail)
             write_cell('Q{}'.format(row), users[i].phone_no)
-            if include_resume:
+            if include_resume == 'true':
                 write_cell('R{}'.format(row), users[i].resume_link)
             i += 1
 
@@ -338,7 +338,7 @@ class JobViewSet(viewsets.ModelViewSet):
             style_cell('O{}'.format(row), df['VI'][i])
             style_cell('P{}'.format(row), df['Email ID'][i])
             style_cell('Q{}'.format(row), df['Mobile No.'][i])
-            if include_resume:
+            if include_resume == 'true':
                 print("Hello World")
                 style_cell('R{}'.format(row), df['Resume Link'][i])
             i += 1
