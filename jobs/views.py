@@ -9,7 +9,7 @@ from django.shortcuts import render
 import pandas as pd
 # Create your views here.
 from openpyxl import load_workbook
-from openpyxl.styles import Font, Alignment
+from openpyxl.styles import Font, Alignment, NamedStyle
 from rest_framework import viewsets, filters, pagination
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
@@ -219,12 +219,14 @@ class JobViewSet(viewsets.ModelViewSet):
         id = request.query_params.get('id')
         dept = request.query_params.get('dept')
         job = Job.objects.get(id=id)
-        users = job.users.all().filter(department = dept)
+        if job.job_type == 'PLACEMENT':
+            users = job.users.all().filter(department = dept)
+        users = job.users.all()
         include_resume = request.query_params.get('include_resume')
         # print(users)
-        def style_cell(cell, val, size=12):
+        def style_cell(cell, val, size=12, bold = True):
             sheet[cell] = val
-            sheet[cell].font = Font(size=size, bold=True, name='Arial')
+            sheet[cell].font = Font(size=size, bold=bold, name='Arial')
             sheet[cell].alignment = Alignment(horizontal='center', vertical='center')
         def write_cell(cell,val):
             ws[cell] = val
@@ -238,7 +240,10 @@ class JobViewSet(viewsets.ModelViewSet):
         style_cell('A2', 'TRAINING & PLACEMENT SECTION (T&P)', 20)
 
         sheet.merge_cells('A3:Q3')
-        style_cell('A3', 'UG (B.Tech.)  :   Engineering  :  2021-22 Batch', 16)
+        if job.job_type == 'PLACEMENT':
+            style_cell('A3', 'UG (B.Tech.)  : Computer  Engineering  :  2022 Batch', 16)
+        else:
+            style_cell('A3', 'UG (B.Tech.)  : Computer Science Engineering  :  2023 Batch', 16)
         sheet.row_dimensions[1].height = 28
         sheet.row_dimensions[2].height = 25
         sheet.row_dimensions[3].height = 20
@@ -251,6 +256,8 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
 
         sheet.column_dimensions['B'].width = 15
+        sheet.column_dimensions['E'].width = 20
+        date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
         sheet.column_dimensions['F'].width = 18
         sheet.column_dimensions['G'].width = 18
 
@@ -322,25 +329,26 @@ class JobViewSet(viewsets.ModelViewSet):
         i = 0
         for row in range(6, 6 + len(users)):
             print(df['Adm. / Roll No.'][i])
-            style_cell('B{}'.format(row), df['Adm. / Roll No.'][i])
-            style_cell('C{}'.format(row), df['Name'][i])
-            style_cell('D{}'.format(row), df['Gender'][i])
-            style_cell('E{}'.format(row), df['DOB'][i])
-            style_cell('F{}'.format(row), df['Home Town'][i])
-            style_cell('G{}'.format(row), df['Current Location'][i])
-            style_cell('H{}'.format(row), df['10th'][i])
-            style_cell('I{}'.format(row), df['12th'][i])
-            style_cell('J{}'.format(row), df['I'][i])
-            style_cell('K{}'.format(row), df['II'][i])
-            style_cell('L{}'.format(row), df['III'][i])
-            style_cell('M{}'.format(row), df['IV'][i])
-            style_cell('N{}'.format(row), df['V'][i])
-            style_cell('O{}'.format(row), df['VI'][i])
-            style_cell('P{}'.format(row), df['Email ID'][i])
-            style_cell('Q{}'.format(row), df['Mobile No.'][i])
+            style_cell('B{}'.format(row), df['Adm. / Roll No.'][i], bold = False)
+            style_cell('C{}'.format(row), df['Name'][i], bold = False)
+            style_cell('D{}'.format(row), df['Gender'][i], bold = False)
+            style_cell('E{}'.format(row), df['DOB'][i], bold = False)
+            style_cell('F{}'.format(row), df['Home Town'][i], bold = False)
+            style_cell('G{}'.format(row), df['Current Location'][i], bold = False)
+            style_cell('H{}'.format(row), df['10th'][i], bold = False)
+            style_cell('I{}'.format(row), df['12th'][i], bold = False)
+            style_cell('J{}'.format(row), df['I'][i], bold = False)
+            style_cell('K{}'.format(row), df['II'][i], bold = False)
+            style_cell('L{}'.format(row), df['III'][i], bold = False)
+            style_cell('M{}'.format(row), df['IV'][i], bold = False)
+            style_cell('N{}'.format(row), df['V'][i], bold = False)
+            style_cell('O{}'.format(row), df['VI'][i], bold = False)
+            style_cell('P{}'.format(row), df['Email ID'][i], bold = False)
+            style_cell('Q{}'.format(row), df['Mobile No.'][i], bold = False)
+            sheet['E{}'.format(row)].style = date_style
             if include_resume == 'true':
                 print("Hello World")
-                style_cell('R{}'.format(row), df['Resume Link'][i])
+                style_cell('R{}'.format(row), df['Resume Link'][i], bold = False)
             i += 1
         # print("TRy", sdf.head())
         wb.remove(wb.get_sheet_by_name('Sorting'))
