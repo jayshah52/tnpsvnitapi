@@ -324,7 +324,10 @@ class JobViewSet(viewsets.ModelViewSet):
         data = ws.values
         columns = next(data)[0:]
         df = pd.DataFrame(data=data, columns=columns)
-        df.sort_values(['VI'], ascending=False, inplace=True, ignore_index=True)
+        if job.job_type == 'PLACEMENT':
+            df.sort_values(['VI'], ascending=False, inplace=True, ignore_index=True)
+        else:
+            df.sort_values(['IV'], ascending=False, inplace=True, ignore_index=True)
         # print(df)
         i = 0
         for row in range(6, 6 + len(users)):
