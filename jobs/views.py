@@ -300,7 +300,7 @@ class JobViewSet(viewsets.ModelViewSet):
         i = 0
         for row in range(2,2+len(users)):
             write_cell('A{}'.format(row), i + 1)
-            style_cell('A{}'.format(row+4), i + 1)
+            style_cell('A{}'.format(row+4), i + 1, bold = False)
             write_cell('B{}'.format(row), users[i].roll_no)
             write_cell('C{}'.format(row), users[i].name)
             write_cell('D{}'.format(row), users[i].gender)
