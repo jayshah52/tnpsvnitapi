@@ -35,6 +35,9 @@ class Job(models.Model):
     apply_by = models.DateField(max_length=8, null=True)
     jd = models.FileField(upload_to='jd/pdf', null=True, max_length=1000)
 
+    class Meta:
+        ordering = ('-created_at',)
+
     def __str__(self):
         return str(self.role)
 
