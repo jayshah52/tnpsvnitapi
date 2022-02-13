@@ -272,7 +272,7 @@ class JobViewSet(viewsets.ModelViewSet):
         style_cell('H5', 'X')
         style_cell('I5', 'XII')
 
-        col_names = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VI','VII']
+        col_names = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
         i = 0
         for al in 'JKLMNOP':
             style_cell('{}5'.format(al), col_names[i])
@@ -323,11 +323,11 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
 
         data = ws.values
-        print("DATA",data)
+        # print("DATA",data)
         columns = next(data)[0:]
-        print("co", columns)
+        # print("co", columns)
         df = pd.DataFrame(data=data, columns=columns)
-        print(df)
+        # print(df)
         if job.job_type == 'PLACEMENT':
             df.sort_values(['VII'], ascending=False, inplace=True, ignore_index=True)
         else:
