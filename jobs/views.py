@@ -283,8 +283,8 @@ class JobViewSet(viewsets.ModelViewSet):
         if include_resume == 'true':
             print("Worksheet")
             ws['S1'].value = 'Resume Link'
-        sheet.merge_cells('Q4:P5')
-        sheet.merge_cells('R4:Q5')
+        sheet.merge_cells('Q4:Q5')
+        sheet.merge_cells('R4:R5')
 
         style_cell('Q4', 'E-mail ID')
         style_cell('R4', 'Mobile No.')
