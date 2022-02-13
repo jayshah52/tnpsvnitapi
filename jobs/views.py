@@ -323,8 +323,11 @@ class JobViewSet(viewsets.ModelViewSet):
             i += 1
 
         data = ws.values
+        print("DATA",data)
         columns = next(data)[0:]
+        print("co", columns)
         df = pd.DataFrame(data=data, columns=columns)
+        print(df)
         if job.job_type == 'PLACEMENT':
             df.sort_values(['VII'], ascending=False, inplace=True, ignore_index=True)
         else:
