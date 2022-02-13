@@ -262,7 +262,7 @@ class JobViewSet(viewsets.ModelViewSet):
         sheet.column_dimensions['G'].width = 18
 
         sheet.merge_cells('H4:I4')
-        sheet.merge_cells('J4:O4')
+        sheet.merge_cells('J4:P4')
         ws['H1'] = '10th'
         ws['I1'] = '12th'
         style_cell('H4', '%')
@@ -272,30 +272,30 @@ class JobViewSet(viewsets.ModelViewSet):
         style_cell('H5', 'X')
         style_cell('I5', 'XII')
 
-        col_names = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VI']
+        col_names = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VI','VII']
         i = 0
-        for al in 'JKLMNO':
+        for al in 'JKLMNOP':
             style_cell('{}5'.format(al), col_names[i])
             ws['{}1'.format(al)] = col_names[i]
             i += 1
-        ws['P1'].value = 'Email ID'
-        ws['Q1'].value = 'Mobile No.'
+        ws['Q1'].value = 'Email ID'
+        ws['R1'].value = 'Mobile No.'
         if include_resume == 'true':
             print("Worksheet")
-            ws['R1'].value = 'Resume Link'
-        sheet.merge_cells('P4:P5')
-        sheet.merge_cells('Q4:Q5')
+            ws['S1'].value = 'Resume Link'
+        sheet.merge_cells('Q4:P5')
+        sheet.merge_cells('R4:Q5')
 
-        style_cell('P4', 'E-mail ID')
-        style_cell('Q4', 'Mobile No.')
+        style_cell('Q4', 'E-mail ID')
+        style_cell('R4', 'Mobile No.')
         if include_resume == 'true':
-            style_cell('R4', 'Resume Link')
+            style_cell('S4', 'Resume Link')
 
         sheet.row_dimensions[4].height = 25
-        sheet.column_dimensions['P'].width = 15
-        sheet.column_dimensions['Q'].width = 18
+        sheet.column_dimensions['Q'].width = 15
+        sheet.column_dimensions['R'].width = 18
         if include_resume == 'true':
-            sheet.column_dimensions['R'].width = 18
+            sheet.column_dimensions['S'].width = 18
 
         i = 0
         for row in range(2,2+len(users)):
@@ -315,17 +315,18 @@ class JobViewSet(viewsets.ModelViewSet):
             write_cell('M{}'.format(row), users[i].cgpa_s4)
             write_cell('N{}'.format(row), users[i].cgpa_s5)
             write_cell('O{}'.format(row), users[i].cgpa_s6)
-            write_cell('P{}'.format(row), users[i].personal_mail)
-            write_cell('Q{}'.format(row), users[i].phone_no)
+            write_cell('P{}'.format(row), users[i].cgpa_s7)
+            write_cell('Q{}'.format(row), users[i].personal_mail)
+            write_cell('R{}'.format(row), users[i].phone_no)
             if include_resume == 'true':
-                write_cell('R{}'.format(row), users[i].resume_link)
+                write_cell('S{}'.format(row), users[i].resume_link)
             i += 1
 
         data = ws.values
         columns = next(data)[0:]
         df = pd.DataFrame(data=data, columns=columns)
         if job.job_type == 'PLACEMENT':
-            df.sort_values(['VI'], ascending=False, inplace=True, ignore_index=True)
+            df.sort_values(['VII'], ascending=False, inplace=True, ignore_index=True)
         else:
             df.sort_values(['IV'], ascending=False, inplace=True, ignore_index=True)
         # print(df)
@@ -346,12 +347,13 @@ class JobViewSet(viewsets.ModelViewSet):
             style_cell('M{}'.format(row), df['IV'][i], bold = False)
             style_cell('N{}'.format(row), df['V'][i], bold = False)
             style_cell('O{}'.format(row), df['VI'][i], bold = False)
-            style_cell('P{}'.format(row), df['Email ID'][i], bold = False)
-            style_cell('Q{}'.format(row), df['Mobile No.'][i], bold = False)
+            style_cell('P{}'.format(row), df['VII'][i], bold=False)
+            style_cell('Q{}'.format(row), df['Email ID'][i], bold = False)
+            style_cell('R{}'.format(row), df['Mobile No.'][i], bold = False)
             sheet['E{}'.format(row)].style = date_style
             if include_resume == 'true':
                 print("Hello World")
-                style_cell('R{}'.format(row), df['Resume Link'][i], bold = False)
+                style_cell('S{}'.format(row), df['Resume Link'][i], bold = False)
             i += 1
         # print("TRy", sdf.head())
         wb.remove(wb.get_sheet_by_name('Sorting'))
